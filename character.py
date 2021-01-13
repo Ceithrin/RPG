@@ -15,7 +15,8 @@ class Character:
         self.atk = atk
         self.dfs = dfs
 
-    def attack(self, atk_val, target):
+    @staticmethod
+    def attack(atk_val, target):
         target.get_hit(atk_val)
 
     def get_hit(self, atk_val):
@@ -32,23 +33,39 @@ class Character:
 
 
 class Player(Character):
-    def __init__(self, name, mp, hp, atk, dfs):
+    def __init__(self, name, mp, hp, atk, dfs, available_spells=[], effects_on=[]):
         super().__init__(name, hp, atk, dfs)
+        self.available_spells = available_spells
+        self.effects_on = effects_on
         self.mp = mp
         self.full_mp = mp
+
+    def apply_effects(self):        # TODO added
+        for e in self.effects_on:
+            e.time -= 1
+            if not e.applied:
+                self.atk += e.add_atk
+                self.dfs += e.add_dfs
+                e.applied = True
+                print(f"\033[32mEffect {e.name} is now applied for {e.time} rounds\033[0m")
+            if e.time == 0:
+                self.atk -= e.add_atk
+                self.dfs -= e.add_dfs
+                self.effects_on.remove(e)
+                print(f"\033[32mEffect {e.name} has ended\033[0m")
 
     def say_hello(self):
         return "My name is " + self.name
 
     def use_spell(self, spell):
-        spell = {
-            'fireball': [30, 50],
-            'icicle': [25, 40],
-            'default': [self.atk, 0]
-        }.get(spell, [self.atk, 0])
-        if self.mp >= spell[1]:
-            self.mp -= spell[1]
-            return spell[0]
+        # spell = {
+        #     'fireball': [30, 50],
+        #     'icicle': [25, 40],
+        #     'default': [self.atk, 0]
+        # }.get(spell, [self.atk, 0])
+        if self.mp >= spell.mana_cost:
+            self.mp -= spell.mana_cost
+            return spell.damage
         else:
             print("You have not enough mana")
             raise NotEnoughMana
