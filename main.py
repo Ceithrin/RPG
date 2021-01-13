@@ -1,7 +1,7 @@
 from character import *
 
 
-class Fight:
+class Fight:  # pole walki - tutaj dzieje się cała gra
     def __init__(self, player, enemy):
         self.player = player
         self.enemy = enemy
