@@ -15,7 +15,6 @@ class Game:
                      "In front of you is the entrance to The Mage Arena\n" \
                      "To prove your courage and obtain Power you have to face bloodthirsty monster\n\n"
         self.outro = "You have proved your power and defeated everyone... Glory to you!"
-        self.awards = awards
         self.enemies = [
             Enemy("Goblin", 70, 37, 20),
             Enemy("Elf", 90, 50, 10)
