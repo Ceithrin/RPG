@@ -31,13 +31,14 @@ class Character:
 
     def is_dead(self):
         if self.hp <= 0:
+            self.hp = 0
             return True
         else:
             return False
 
 
 class Player(Character):
-    def __init__(self, name, mp, hp, atk, dfs, lvl=1, available_spells=[], effects_on=[]):
+    def __init__(self, name, mp=100, hp=100, atk=20, dfs=30, lvl=1, available_spells=[], effects_on=[]):
         super().__init__(name, hp, atk, dfs)
         self.available_spells = available_spells
         self.effects_on = effects_on
