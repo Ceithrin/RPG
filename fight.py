@@ -7,22 +7,16 @@ class Fight:  # pole walki - tutaj dzieje się cała gra
     def __init__(self, player, enemy):
         self.player = player
         self.enemy = enemy
+        
+    def get_input(self, message=''):
+        return input(message)
 
-    def choose_action(self, input):
-        return self.player.available_spells[int(input) - 1]
-        # return {
-        #     '1': 'fireball',
-        #     '2': 'icicle',
-        #     '3': 'default'
-        # }.get(input, 'default')
+    def choose_action(self):
+        return self.player.available_spells[int(self.get_input()) - 1]
 
     def print_help(self):
         for s in range(len(self.player.available_spells)):
             print(f"{s + 1} - {self.player.available_spells[s].return_spell_info()}")
-        # print("\n 1 - Fireball - Damage: 30, Mana Cost: 50"
-        #       "\n 2 - Icicle - Damage: 25, Mana Cost: 40"
-        #       "\n 3 - Normal Attack - Damage: {}, Mana Cost: 0".format(self.player.atk)
-        #       )
 
     def fight(self):
         while True:
@@ -32,7 +26,7 @@ class Fight:  # pole walki - tutaj dzieje się cała gra
             while True:
                 try:
                     self.print_help()
-                    player_atk = self.player.use_spell(self.choose_action(input("Choose attack: ")))
+                    player_atk = self.player.use_spell(self.choose_action())
                     break
                 except NotEnoughMana:
                     pass
