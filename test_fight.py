@@ -7,7 +7,7 @@ from spells import Spell
 
 class TestFight(TestCase):
 
-    @patch('fight.input', return_value=1)
+    @patch('fight.input', return_value='1')
     def test_fight_win(self, input):
         player = Player("Player")
         default = Spell('Default', player.atk, 0)
@@ -17,7 +17,7 @@ class TestFight(TestCase):
         fight.fight()
         self.assertEqual(fight.enemy.hp, 0)
 
-    @patch('fight.input', return_value=1)
+    @patch('fight.input', return_value='1')
     def test_fight_lose(self, input):
         player = Player("Player")
         default = Spell('Default', player.atk, 0)
@@ -28,3 +28,4 @@ class TestFight(TestCase):
             fight.fight()
         self.assertEqual(fight.player.hp, 0)
         self.assertEqual(cm.exception.code, None)
+
