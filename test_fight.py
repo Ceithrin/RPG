@@ -26,4 +26,5 @@ class TestFight(TestCase):
         fight = Fight(player, enemy)
         with self.assertRaises(SystemExit) as cm:
             fight.fight()
+        self.assertEqual(fight.player.hp, 0)
         self.assertEqual(cm.exception.code, None)
