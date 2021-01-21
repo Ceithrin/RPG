@@ -8,11 +8,11 @@ class Fight:  # pole walki - tutaj dzieje się cała gra
         self.player = player
         self.enemy = enemy
         
-    def get_input(self, message=''):
+    def input(self, message=''):
         return input(message)
 
     def choose_action(self):
-        return self.player.available_spells[int(self.get_input()) - 1]
+        return self.player.available_spells[int(self.input()) - 1]
 
     def print_help(self):
         for s in range(len(self.player.available_spells)):
@@ -20,7 +20,7 @@ class Fight:  # pole walki - tutaj dzieje się cała gra
 
     def fight(self):
         while True:
-            self.player.apply_effects()     # TODO added
+            self.player.apply_effects()     
             print(f"Your hp: {self.player.hp}\nYour mana: {self.player.mp}")
             print(f"{self.enemy.name} hp: {self.enemy.hp}")
             while True:
@@ -40,7 +40,7 @@ class Fight:  # pole walki - tutaj dzieje się cała gra
                 return
             self.enemy.attack(self.enemy.atk, self.player)
             if self.player.is_dead():
-                print_art('death')      # TODO dodany art
+                print_art('death')      
                 print(f"\033[0:31mYou are dead\033[0m")
                 raise PlayerIsDead
             self.player.mana_regen()
